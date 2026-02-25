@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  --color-moss: #2E4036;
+  --color-moss-light: #3D5A4A;
+  --color-moss-dark: #1E2D24;
+  --color-clay: #CC5833;
+  --color-clay-soft: #E07A5F;
+  --color-cream: #F2F0E9;
+  --color-cream-dark: #E8E5DC;
+  --color-charcoal: #1A1A1A;
+  --color-surface: #243029;
+  --color-success: #4ADE80;
+
+  --font-heading: "Plus Jakarta Sans", "Outfit", system-ui, sans-serif;
+  --font-drama: "Cormorant Garamond", serif;
+  --font-data: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --radius-soft: 2rem;
+  --radius-softer: 3rem;
+  --radius-softest: 4rem;
+}
+
+@keyframes pulseSoft {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+@keyframes cursorBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes scanLine {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(100px); }
+  100% { transform: translateY(0); }
+}
+
+@layer base {
+  body {
+    @apply bg-cream text-charcoal font-heading antialiased overflow-x-hidden;
+  }
+
+  ::selection {
+    background: rgba(204, 88, 51, 0.2);
+  }
+}
+
+@layer utilities {
+  .noise-overlay {
+    pointer-events: none;
+    position: fixed;
+    inset: -10px;
+    opacity: 0.04;
+    mix-blend-mode: soft-light;
+    z-index: 50;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  }
+
+  .text-drama {
+    @apply font-drama italic tracking-tight leading-[0.9];
+  }
+
+  .text-data {
+    @apply font-data tracking-widest uppercase text-xs;
+  }
+
+  .magnetic-btn {
+    @apply relative overflow-hidden px-8 py-3 font-medium transition-transform duration-500 will-change-transform;
+    border-radius: 2rem;
+    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .magnetic-btn:hover {
+    @apply scale-[1.03];
+    transform: translateY(-1px) scale(1.03);
+  }
+
+  .magnetic-btn .btn-bg {
+    @apply absolute inset-0 translate-y-full transition-transform duration-500 ease-out;
+  }
+
+  .magnetic-btn:hover .btn-bg {
+    @apply translate-y-0;
+  }
+
+  .magnetic-btn .btn-label {
+    @apply relative z-10 flex items-center gap-2;
+  }
+
+  .section-shell {
+    @apply relative mx-auto max-w-6xl px-5 sm:px-8 lg:px-10;
+  }
+
+  .card-surface {
+    @apply bg-white/80 backdrop-blur-sm border border-charcoal/[0.06];
+    border-radius: 2rem;
+    box-shadow: 0 24px 80px rgba(26, 26, 26, 0.06);
+  }
+
+  .pulse-dot {
+    @apply inline-block w-2 h-2 rounded-full;
+    animation: pulseSoft 2.4s ease-in-out infinite;
+  }
+}
